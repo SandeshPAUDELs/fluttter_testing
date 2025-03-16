@@ -22,4 +22,17 @@ class ProductRepoImpl extends ProductRepo {
         )
         .toList();
   }
+
+  @override
+  Future<ProductEntities> getProductById(int id) async {
+    final product = await dataSources.getProductById(id);
+    return ProductEntities(
+      id: product.id,
+      title: product.title,
+      description: product.description,
+      category: product.category,
+      image: product.image,
+    );
+  }
+  
 }

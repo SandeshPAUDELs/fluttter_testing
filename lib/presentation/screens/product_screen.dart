@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_bloc.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_event.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_state.dart';
+import 'package:flutter_application_2/presentation/screens/products_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class ProductScreen extends StatelessWidget {
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           if (state is ProductInitial) {
+            
             return Center(
               child: Text('Initial state, products not fetched yet.'),
             );
@@ -26,9 +28,23 @@ class ProductScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: state.products.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.products[index].title),
-                  subtitle: Text(state.products[index].description),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ProductsDetailsScreen(
+                            productId: state.products[index].id,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(state.products[index].title),
+                    subtitle: Text(state.products[index].description),
+                  ),
                 );
               },
             );

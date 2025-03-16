@@ -3,6 +3,7 @@ import 'package:flutter_application_2/data/models/product_models.dart';
 
 abstract class ProductDataSources {
   Future<List<ProductModels>> getProducts();
+  Future<ProductModels> getProductById(int id);
 }
 
 class ProductDataSourcesImpl extends ProductDataSources {
@@ -22,4 +23,19 @@ class ProductDataSourcesImpl extends ProductDataSources {
     }
   }
 
+
+  @override
+  Future<ProductModels> getProductById(int id) async {
+    try {
+      final response = await dio.get('$baseUrl/$id');
+      final ProductModels product = ProductModels.fromJson(response.data);
+      return product;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
 }
+
+
+

@@ -9,4 +9,8 @@ class ProductUsecases {
   Future<List<ProductEntities>> getProducts() async {
     return await productRepo.getProducts();
   }
+
+  Future<ProductEntities> getProductById(int id) async {
+    return await productRepo.getProductById(id);
+  }
 }

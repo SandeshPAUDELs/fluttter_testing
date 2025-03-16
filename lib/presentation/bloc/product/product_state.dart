@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_2/domain/entities/product_entities.dart';
 
 abstract class ProductState extends Equatable {
   @override
@@ -17,4 +18,11 @@ class ProductFailure extends ProductState {
   ProductFailure({required this.error});
   @override
   List<Object> get props => [error];
+}
+
+class ProductByIdSuccess extends ProductState {
+  final ProductEntities  product;
+  ProductByIdSuccess({required this.product});
+  @override
+  List<Object> get props => [product];
 }
