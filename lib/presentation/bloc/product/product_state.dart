@@ -7,22 +7,24 @@ abstract class ProductState extends Equatable {
 }
 class ProductInitial extends ProductState {}
 class ProductLoading extends ProductState {}
+
 class ProductSuccess extends ProductState {
-  final List products;
-  ProductSuccess({required this.products});
+  final List<ProductEntities> products;
+
+  ProductSuccess(this.products);
+
   @override
   List<Object> get props => [products];
 }
+class ProductByIdSuccess extends ProductState {
+  final ProductEntities product;
+  ProductByIdSuccess(this.product);
+}
 class ProductFailure extends ProductState {
   final String error;
-  ProductFailure({required this.error});
+
+  ProductFailure(this.error);
+
   @override
   List<Object> get props => [error];
-}
-
-class ProductByIdSuccess extends ProductState {
-  final ProductEntities  product;
-  ProductByIdSuccess({required this.product});
-  @override
-  List<Object> get props => [product];
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_bloc.dart';
-import 'package:flutter_application_2/presentation/bloc/product/product_event.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_state.dart';
 import 'package:flutter_application_2/presentation/screens/products_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +10,12 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ProductBloc>().add(FetchProducts());
+      context.read<ProductCubit>().fetchProducts();
+      // context.read<ProductCubit>().FetchProducts();
     });
 
     return Scaffold(
-      body: BlocBuilder<ProductBloc, ProductState>(
+      body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           if (state is ProductInitial) {
             

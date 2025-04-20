@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => CounterBloc()),
         BlocProvider(
-          create: (context) => ProductBloc(getIt()),
+          create: (context) => ProductCubit(getIt()),
         ),
         BlocProvider(create: (context) => InternetBloc(connectivity: Connectivity())),
       ],

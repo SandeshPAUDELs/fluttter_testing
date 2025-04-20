@@ -13,5 +13,5 @@ void injection() {
   getIt.registerLazySingleton(() => ProductUsecases(getIt()));
   getIt.registerLazySingleton<ProductDataSources>(() => ProductDataSourcesImpl(dio: getIt()));
   getIt.registerLazySingleton<ProductRepo>(() => ProductRepoImpl(dataSources: getIt()));
-  getIt.registerFactory(() => ProductBloc(getIt()));
+  getIt.registerFactory(() => ProductCubit(getIt()));
 }

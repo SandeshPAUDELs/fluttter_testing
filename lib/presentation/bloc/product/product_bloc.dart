@@ -1,29 +1,29 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter_application_2/domain/usecases/product_usecases.dart';
-import 'package:flutter_application_2/presentation/bloc/product/product_event.dart';
 import 'package:flutter_application_2/presentation/bloc/product/product_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_application_2/domain/usecases/product_usecases.dart';
 
-class ProductBloc extends Bloc<ProductsEvent, ProductState>{
-   ProductUsecases productUsecases;
-  ProductBloc(this.productUsecases) : super(ProductInitial()){
-   on<FetchProducts>((event, emit)  async {
-      emit(ProductLoading());
-      try {
-        final products = await productUsecases.getProducts();
-        emit(ProductSuccess(products: products));
-      } catch (e) {
-        emit(ProductFailure(error: e.toString()));
-      }
-   });
+class ProductCubit extends Cubit<ProductState> {
+  final ProductUsecases productUsecases;
 
-   on<FetchProductById>((event, emit) async {
-      emit(ProductLoading());
-      try {
-        final product = await productUsecases.getProductById(event.id);
-        emit(ProductByIdSuccess(product: product));
-      } catch (e) {
-        emit(ProductFailure(error: e.toString()));
-      }
-   });
+  ProductCubit(this.productUsecases) : super(ProductInitial());
+
+  Future<void> fetchProducts() async {
+    emit(ProductLoading());
+    try {
+      final products = await productUsecases.getProducts();
+      emit(ProductSuccess(products));
+    } catch (e) {
+      emit(ProductFailure(e.toString()));
+    }
+  }
+
+  Future<void> fetchProductById(int id) async {
+    emit(ProductLoading());
+    try {
+      final product = await productUsecases.getProductById(id);
+      emit(ProductByIdSuccess(product));
+    } catch (e) {
+      emit(ProductFailure(e.toString()));
+    }
   }
 }
